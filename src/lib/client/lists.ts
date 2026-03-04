@@ -207,7 +207,7 @@ export class ListMixin extends BaseClient {
 
     return {
       id: tweetData.rest_id,
-      text: legacy.full_text,
+      text: this.extractTweetText(tweetData),
       createdAt: legacy.created_at,
       user: core ? this.parseListTweetUser(core) : null as any,
       replyCount: legacy.reply_count,

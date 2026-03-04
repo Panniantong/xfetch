@@ -15,6 +15,34 @@ export class BaseClient {
   protected proxyManager: ProxyManager | null;
   protected options: ClientOptions;
 
+  /**
+   * Extract tweet text with longform support.
+   *
+   * X/Twitter long tweets may store full content in `note_tweet...text` while
+   * `legacy.full_text` contains only a preview ("show more" truncation).
+   */
+  protected extractTweetText(tweetData: any): string {
+    const legacy = tweetData?.legacy;
+
+    // Longform note tweet
+    const note = tweetData?.note_tweet?.note_tweet_results?.result;
+    const noteText =
+      note?.text ??
+      note?.richtext?.text ??
+      note?.rich_text?.text ??
+      note?.content?.text ??
+      note?.content?.richtext?.text ??
+      note?.content?.rich_text?.text;
+
+    if (typeof noteText === 'string' && noteText.trim()) {
+      return noteText;
+    }
+
+    // Fallback: classic tweet text
+    const fullText = legacy?.full_text ?? legacy?.text ?? tweetData?.text;
+    return typeof fullText === 'string' ? fullText : '';
+  }
+
   constructor(session: Session, options: ClientOptions = {}) {
     this.session = session;
     this.options = {
