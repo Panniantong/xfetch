@@ -135,8 +135,8 @@ export function extractTweetId(urlOrId: string): string {
     return urlOrId;
   }
   
-  // Extract from URL
-  const match = urlOrId.match(/status\/(\d+)/);
+  // Extract from URL — supports both /status/ID and /article/ID
+  const match = urlOrId.match(/(?:status|article)\/(\d+)/);
   if (match) {
     return match[1];
   }
