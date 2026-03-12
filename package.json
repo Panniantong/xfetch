@@ -1,7 +1,7 @@
 {
   "name": "xreach-cli",
-  "version": "0.3.0",
-  "description": "Fast X/Twitter CLI \u2014 search, read, and extract. Part of the Agent Reach ecosystem.",
+  "version": "0.3.3",
+  "description": "Fast X/Twitter CLI — search, read, and extract. Part of the Agent Reach ecosystem.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
